@@ -32,9 +32,11 @@ class CustomUserCreationForm(forms.ModelForm):
     user_surname = forms.CharField(required=True, widget=forms.TextInput(
         attrs={'class': 'form-control'},
     ))
-    user_sex = forms.CharField(required=True, widget=forms.TextInput(
-        attrs={'class': 'form-control'},
-    ))
+    user_sex = forms.MultipleChoiceField(
+        required=True,
+        widget=forms.CheckboxSelectMultiple,
+        choices=NewUser.SEX_CHOICES,
+        )
     email = forms.EmailField(required=True, widget=forms.EmailInput(
         attrs={'class': 'form-control'}
     ))

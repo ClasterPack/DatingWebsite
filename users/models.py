@@ -1,4 +1,5 @@
 from django.db import models
+from django import forms
 from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
@@ -38,11 +39,16 @@ class CustomAccountManager(BaseUserManager):
 
 class NewUser(AbstractBaseUser, PermissionsMixin):
 
+    SEX_CHOICES = (
+        ('m', u"мужской"),
+        ('w', u"женский"),
+        ('n', u"не выбран"),
+    )
     email = models.EmailField(_('электронная почта'), unique=True)
     user_name = models.CharField(_('имя пользователя'), max_length=50)
     user_surname = models.CharField(_('фамилия пользователя'), max_length=50)
     user_nickname = models.CharField(_('ник пользователя'), max_length=50, unique=True)
-    user_sex = models.CharField(_('пол пользователя'), max_length=1)
+    user_sex = models.CharField(_('пол'), max_length=1, choices=SEX_CHOICES, default='n')
     user_avatar = models.ImageField(_('аватар пользователя'), default='default.png')
     is_staff = models.BooleanField(_('администратор сайта'), default=False)
     is_active = models.BooleanField(_('активный пользователь'), default=False)
