@@ -1,8 +1,9 @@
-from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
+from django.urls import path
 
-from users.views import user_registration, user_login, user_logout, users_list, home_page
+from users.views import (home_page, user_login, user_logout, user_registration,
+                         users_list)
 
 app_name = 'users'
 

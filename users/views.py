@@ -1,14 +1,13 @@
 from django.conf import settings
-from django.shortcuts import render, redirect
-from django.http import HttpResponse
-from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.forms import AuthenticationForm
 from django.core.handlers.wsgi import WSGIRequest
 from django.db.models import Count, Q
-
+from django.http import HttpResponse
+from django.shortcuts import redirect, render
 
 from users.forms import CustomUserCreationForm
 from users.models import NewUser
-from django.contrib.auth.forms import AuthenticationForm
 
 
 def user_logout(request):
