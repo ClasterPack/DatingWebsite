@@ -9,19 +9,19 @@ class UserAdminConfig(UserAdmin):
 
     model = NewUser
     search_fields = (
-        'user_nickname', 'email', 'user_name', 'user_surname', 'user_sex',
+        'email', 'user_name', 'user_surname', 'user_sex',
     )
     list_filter = (
-        'user_nickname', 'email', 'user_name', 'user_surname', 'user_sex',
+        'email', 'user_name', 'user_surname', 'user_sex',
     )
     ordering = ('-start_date',)
     list_display = (
-        'user_nickname', 'email', 'user_name', 'user_surname', 'user_sex',
+        'email', 'user_name', 'user_surname', 'user_sex',
         'is_active', 'is_staff', 'start_date',
     )
     fieldsets = (
         ('Персональные Данные', {'fields': (
-            'user_nickname', 'user_name', 'user_surname',
+            'user_name', 'user_surname',
             'user_sex', 'user_avatar', 'about',
         )}),
         ('Разрешения', {'fields': (
@@ -39,7 +39,7 @@ class UserAdminConfig(UserAdmin):
         (None, {
             'classes': ('wide',),
             'fields': (
-                'email', 'user_nickname', 'user_name', 'user_surname',
+                'email', 'user_name', 'user_surname',
                 'user_sex', 'user_avatar', 'about',
                 'password1', 'password2',
                 'is_active', 'is_staff',

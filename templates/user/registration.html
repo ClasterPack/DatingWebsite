@@ -35,13 +35,6 @@
 									<p class="error">{{ error }}</p>
 								{% endfor %}
 							</div>
-							<div class="col m6 s12">
-								<label>Ник пользователя.</label>
-								{{ form.user_nickname }}
-								{% for error in form.errors.nickname %}
-									<p class="error">{{ error }}</p>
-								{% endfor %}
-							</div>
 						</div>
 
 						<div class="row">
@@ -59,13 +52,15 @@
 									<p class="error">{{ error }}</p>
 								{% endfor %}
 							</div>
+                        </div>
+                        <div class="row">
 							<div class="col m6 s12 ">
 								<label>Пол</label>
 
                                     <select name="пол" class="form-control">
-                                        <option value="m">Мужской</option>
-                                        <option value="w">Женский</option>
-                                        <option value="n">Не выбран</option>
+                                        <option value=1>Не выбран</option>
+                                        <option value=2>Женский</option>
+                                        <option value=3>Мужской</option>
                                     </select>
                             </div>
 							<div class="col m6 s12">
@@ -76,20 +71,18 @@
 								{% endfor %}
 							</div>
 						</div>
-						<div class="row">
-							<div class="column">
-								<button type="submit" class="btn btn-primary">Войти</button>
-							</div>
-						</div>
+                        <div class="row">
+                            <div class="column">
+                                <button type="submit" class="btn btn-primary">Зарегестрироваться.</button>
+                            </div>
+                        </div>
 						<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 						<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
 						<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/js/bootstrap-datetimepicker.min.js"></script>
 
 						<link rel="stylesheet"
 						      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
-					</form>
-
-				</div>
+				    </div>
 			</div>
 		</div>
 	</div>

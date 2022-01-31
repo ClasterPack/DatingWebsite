@@ -3,6 +3,7 @@ from django.contrib.auth import password_validation
 from django.core.exceptions import ValidationError
 
 from .models import NewUser
+from .sex_choices import Sex
 
 
 class CustomUserCreationForm(forms.ModelForm):
@@ -23,20 +24,22 @@ class CustomUserCreationForm(forms.ModelForm):
                                           'class': 'form-control'}),
         help_text='Введите пароль ещё раз для подтверждения.'
     )
-    user_nickname = forms.CharField(required=True, widget=forms.TextInput(
-        attrs={'class': 'form-control'},
-    ))
-    user_name = forms.CharField(required=True, widget=forms.TextInput(
-        attrs={'class': 'form-control'},
-    ))
-    user_surname = forms.CharField(required=True, widget=forms.TextInput(
-        attrs={'class': 'form-control'},
-    ))
+    user_name = forms.CharField(
+        required=True, widget=forms.TextInput(
+            attrs={'class': 'form-control'}),
+        help_text='Введите имя.'
+    )
+    user_surname = forms.CharField(
+        required=True, widget=forms.TextInput(
+            attrs={'class': 'form-control'}),
+        help_text='Введите фамилию.'
+
+    )
     user_sex = forms.MultipleChoiceField(
         required=True,
         widget=forms.CheckboxSelectMultiple,
-        choices=NewUser.SEX_CHOICES,
-        )
+        choices=Sex,
+    )
     email = forms.EmailField(required=True, widget=forms.EmailInput(
         attrs={'class': 'form-control'}
     ))
@@ -48,12 +51,11 @@ class CustomUserCreationForm(forms.ModelForm):
         model = NewUser
         fields = (
             'email',
-            'user_nickname',
             'user_name',
             'user_surname',
             'user_sex',
             'user_avatar',
-            'about'
+            'about',
         )
 
     def clean_password2(self):

@@ -11,9 +11,9 @@
 
 					<div class="row">
 						<div class="col s12">
-							{{ form.email }}
-							<label for="{{ form.password.id_for_label }}">Электронная Почта.</label>
-							{% for error in form.errors.email %}
+							{{ form.username }}
+							<label for="{{ form.password.id_for_label }}"> Электронная почта</label>
+							{% for error in form.errors.username %}
 								<p class="error">{{ error }}</p>
 							{% endfor %}
 						</div>
@@ -22,7 +22,7 @@
 					<div class="row">
 						<div class="col s12">
 							{{ form.password }}
-							<label for="{{ form.password.id_for_label }}">Пароль.</label>
+							<label for="{{ form.password.id_for_label }}">Пароль</label>
 							{% for error in form.password.password %}
 								<p class="error">{{ error }}</p>
 							{% endfor %}
@@ -34,7 +34,7 @@
 							<button type="submit" class="btn btn-primary">Войти</button>
 						</div>
 					</div>
-				<a href="{% url 'users:user_registration' %}">Не регестрировались?</a>
+				<a href="{% url 'users:user_registration' %}">Регистрация</a>
 				</form>
 			</div>
 		</div>
