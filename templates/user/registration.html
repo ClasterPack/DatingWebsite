@@ -1,7 +1,8 @@
 {% extends 'base.html' %}
 
 {% block content %}
-	<div class="container pt-30">
+
+<div class="container pt-30">
 		<div class="section">
 			<div class="row">
 				<div class="col s12">
@@ -29,7 +30,7 @@
 
 						<div class="row">
 							<div class="col m6 s12">
-								<label>Электронная почта.</label>
+								<label>Email</label>
 								{{ form.email }}
 								{% for error in form.errors.email %}
 									<p class="error">{{ error }}</p>
@@ -37,60 +38,68 @@
 							</div>
 						</div>
 
-						<div class="row">
+                    <div class="row">
 							<div class="col m6 s12">
-								<label>Пароль.</label>
-								{{ form.password1 }}
-								{% for error in form.errors.password1 %}
-									<p class="error">{{ error }}</p>
-								{% endfor %}
-							</div>
-							<div class="col m6 s12">
-								<label>Подтверждение Пароля.</label>
-								{{ form.password2 }}
-								{% for error in form.errors.password2 %}
-									<p class="error">{{ error }}</p>
-								{% endfor %}
-							</div>
-                        </div>
-                        <div class="row">
-							<div class="col m6 s12 ">
-								<label>Пол</label>
-
-                                    <select name="пол" class="form-control">
-                                        <option value=1>Не выбран</option>
-                                        <option value=2>Женский</option>
-                                        <option value=3>Мужской</option>
-                                    </select>
-                            </div>
-							<div class="col m6 s12">
-								<label>Аватарка</label>
+                                <label>Аватар</label>
 								{{ form.user_avatar }}
 								{% for error in form.errors.image %}
 									<p class="error">{{ error }}</p>
 								{% endfor %}
 							</div>
-						</div>
+                            <div class="col m6 s12">
+                                <label>Пол</label>
+                                {{ form.user_sex }}
+                                <p class="error">{{ error }}</p>
+                            </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col m7 s12">
+                            <label>Пароль</label>
+                            {{ form.password1 }}
+                            {% for error in form.errors.password1 %}
+                                <p class="error">{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                        <div class="col m7 s12">
+                            <label>Подтвердите пароль</label>
+                            {{ form.password2 }}
+                            {% for error in form.errors.password2 %}
+                                <p class="error">{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col m7 s12">
+                            <label>О себе</label>
+                            {{ form.about }}
+                            <p class="error">{{ error }}</p>
+                    <div class="row">
                         <div class="row">
-                            <div class="column">
-                                <button type="submit" class="btn btn-primary">Зарегестрироваться.</button>
+                            <div class="col m6 s12">
+                                <button type="submit" class="btn btn-primary">Зарегестрироваться</button>
+                            </div>
+                            <div class="col m6 s12">
+                                <button onclick="location.href='api/clients/login'" class="btn btn-primary" type="button">Войти</button>
                             </div>
                         </div>
+                    </div>
+						</div>
 						<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 						<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
 						<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/js/bootstrap-datetimepicker.min.js"></script>
 
 						<link rel="stylesheet"
 						      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
-				    </div>
+						<link rel="stylesheet"
+						      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/css/bootstrap-datetimepicker.min.css">
+                    </form>
+
+				</div>
 			</div>
 		</div>
 	</div>
-	<div class="section">
-		<div class="row">
-			<div class="col-lg-3 mx-auto">
-				<a href="{% url 'users:user_login' %}" >Уже зарегестрированы?</a>
-			</div>
 		</div>
 	</div>
 
@@ -100,5 +109,7 @@
             color: red;
         }
 	</style>
+
+
 
 {% endblock %}

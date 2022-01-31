@@ -7,7 +7,7 @@ def add_watermark(image_file):
 
     draw = ImageDraw.Draw(avatar)
     text = 'Daiting Site'
-    font = ImageFont.truetype('arial.ttf', 45)
+    font = ImageFont.truetype('arial.ttf', 500)
 
     textwidth, textheight = draw.textsize(text, font)
 

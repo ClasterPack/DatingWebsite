@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block content %}
+
+	<div class="container marketing">
+
+		<br><br>
+		<h2 class="text-center pt-3">Пользователи Сайта</h2>
+
+		<div class="text text-center">
+			<br> <br>
+			<hr>
+		</div>
+		<div class="row">
+		</div>
+		<br>
+		{% for user in users %}
+
+			{% if forloop.counter0|divisibleby:4 %}
+				<div class="row">
+			{% endif %}
+
+		<div class="col-lg-4">
+			<img class="bd-placeholder-img rounded-circle" height=250 width=250 src="{{ user.user_avatar.url }}"/>
+			<h2>{{ user.user_name }}</h2>
+            <h2>{{ user.user_surname }}</h2>
+			<p>Пол: - {{ user.user_sex }}</p>
+			<br><br>
+		</div><!-- /.col-lg-4 -->
+
+		{% if forloop.counter|divisibleby:4 or forloop.last %}
+			</div><!-- /.row -->
+		{% endif %}
+
+		{% endfor %}
+
+		<br>
+
+	</div><!-- /.container -->
+
+{% endblock %}

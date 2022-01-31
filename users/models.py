@@ -3,8 +3,8 @@ from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 
+
 from .sex_choices import Sex
-from .watermark import add_watermark
 
 
 class CustomAccountManager(BaseUserManager):
@@ -14,13 +14,13 @@ class CustomAccountManager(BaseUserManager):
             raise ValueError(_('Нужна электронная почта.'))
 
         email = self.normalize_email(email)
-        user_avatar = add_watermark(user_avatar)
         user = self.model(
             email=email, user_name=user_name,
             user_surname=user_surname, user_sex=user_sex,
             user_avatar=user_avatar, **extra_fields
         )
         user.set_password(password)
+
         user.save()
         return user
 
@@ -28,7 +28,7 @@ class CustomAccountManager(BaseUserManager):
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
         extra_fields.setdefault('is_active', True)
-        extra_fields.setdefault('user_avatar', 'avatars/default.png')
+        extra_fields.setdefault('user_avatar', 'default.png')
 
         if extra_fields.get('is_staff') is not True:
             raise ValueError(
@@ -38,16 +38,15 @@ class CustomAccountManager(BaseUserManager):
             raise ValueError(
                 'Superuser must be assigned to is_superuser=True.'
             )
-        return self.create_user(email,  user_name, user_surname, password, **extra_fields)
+        return self.create_user(email, user_name, user_surname, password, **extra_fields)
 
 
 class NewUser(AbstractBaseUser, PermissionsMixin):
-
-    email = models.EmailField(_('электронная почта'), unique=True)
-    user_name = models.CharField(_('имя пользователя'), max_length=50)
-    user_surname = models.CharField(_('фамилия пользователя'), max_length=50)
-    user_sex = models.PositiveSmallIntegerField(choices=Sex.choices, default='-')
-    user_avatar = models.ImageField(_('аватар пользователя'), upload_to='')
+    email = models.EmailField(_('Электронная почта'), unique=True)
+    user_name = models.CharField(_('имя '), max_length=50)
+    user_surname = models.CharField(_('Фамилия'), max_length=50)
+    user_sex = models.CharField(_('Пол'), choices=Sex.choices, max_length=1)
+    user_avatar = models.ImageField(_('аватар '), upload_to='', default='default.png')
     is_staff = models.BooleanField(_('администратор сайта'), default=False)
     is_active = models.BooleanField(_('активный пользователь'), default=False)
     start_date = models.DateTimeField(_('дата создания пользователя'), default=timezone.now)
@@ -59,9 +58,10 @@ class NewUser(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = ['user_name', 'user_surname']
 
     def __str__(self):
-        full_name = f'{self.user_name} {self.user_surname}'
-        return full_name
+        self.full_name = f'{self.user_name} {self.user_surname}'
+        return self.full_name
 
     class Meta:
         verbose_name = 'Пользователь'
         verbose_name_plural = 'Пользователи'
+

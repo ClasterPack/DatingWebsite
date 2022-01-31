@@ -22,7 +22,7 @@ class CustomUserCreationForm(forms.ModelForm):
         strip=False,
         widget=forms.PasswordInput(attrs={'autocomplete': 'new-password',
                                           'class': 'form-control'}),
-        help_text='Введите пароль ещё раз для подтверждения.'
+        help_text=password_validation.password_validators_help_text_html()
     )
     user_name = forms.CharField(
         required=True, widget=forms.TextInput(
@@ -35,17 +35,18 @@ class CustomUserCreationForm(forms.ModelForm):
         help_text='Введите фамилию.'
 
     )
-    user_sex = forms.MultipleChoiceField(
+    user_sex = forms.ChoiceField(
         required=True,
-        widget=forms.CheckboxSelectMultiple,
-        choices=Sex,
+        choices=Sex.choices,
+        help_text='Выберите пол'
     )
     email = forms.EmailField(required=True, widget=forms.EmailInput(
         attrs={'class': 'form-control'}
     ))
-    about = forms.EmailField(required=True, widget=forms.EmailInput(
+    about = forms.CharField(required=True, widget=forms.TextInput(
         attrs={'class': 'form-control'}
     ))
+    # user_avatar = forms.ImageField()
 
     class Meta:
         model = NewUser
@@ -57,29 +58,7 @@ class CustomUserCreationForm(forms.ModelForm):
             'user_avatar',
             'about',
         )
+        widgets = {
+            'sex': forms.Select(attrs={'class': 'custom-select md-form'}),
+        }
 
-    def clean_password2(self):
-        password1 = self.cleaned_data.get('password1')
-        password2 = self.cleaned_data.get('password2')
-        if password1 and password2 and password1 != password2:
-            raise ValidationError(
-                self.error_messages['password_mismatch'],
-                code='password_mismatch'
-            )
-        return password2
-
-    def _post_clean(self):
-        super()._post_clean()
-        password = self.cleaned_data.get('password2')
-        if password:
-            try:
-                password_validation.validate_password(password, self.instance)
-            except ValidationError as error:
-                self.add_error('password2', error)
-
-    def save(self, commit=True):
-        user = super().save(commit=False)
-        user.set_password(self.cleaned_data["password1"])
-        if commit:
-            user.save()
-        return

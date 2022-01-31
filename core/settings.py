@@ -121,7 +121,7 @@ STATIC_URL = 'static/'
 
 AUTH_USER_MODEL = 'users.NewUser'
 
-MEDIA_URL = '/images/'
+MEDIA_URL = 'avatars/'
 MEDIA_ROOT = BASE_DIR / 'avatars'
 
 LOGIN_URL = 'users:user_login'
